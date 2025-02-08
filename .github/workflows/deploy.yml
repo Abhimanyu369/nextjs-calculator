@@ -34,4 +34,7 @@ jobs:
           git config --global user.name "abhimanyumalik369"
 
       - name: Deploy to GitHub Pages
-        run: npm run deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
