@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center text-center">
-      <h1 className="text-5xl font-bold mb-6 text-primary">Welcome to Calculator App</h1>
+      <h1 className="text-5xl font-bold mb-6 text-primary">Welcome to Calculator App Test</h1>
       <p className="text-lg text-muted-foreground">Choose a calculator below:</p>
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="w-80">
