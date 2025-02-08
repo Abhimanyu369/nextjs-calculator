@@ -28,5 +28,10 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
+      - name: Set Git Identity
+        run: |
+          git config --global user.email "abhimanyumalik369@gmail.com"
+          git config --global user.name "abhimanyumalik369"
+
       - name: Deploy to GitHub Pages
         run: npm run deploy
