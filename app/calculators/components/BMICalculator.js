@@ -49,7 +49,19 @@ const BMICalculator = () => {
 
   // Custom active shape for highlighting BMI category
   const renderActiveShape = (props) => {
-    const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
+    const {
+      cx,
+      cy,
+      midAngle,
+      innerRadius,
+      outerRadius,
+      startAngle,
+      endAngle,
+      fill,
+      payload,
+      percent,
+      value,
+    } = props;
     const RADIAN = Math.PI / 180;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
@@ -63,7 +75,14 @@ const BMICalculator = () => {
 
     return (
       <g>
-        <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill} className="text-lg font-bold">
+        <text
+          x={cx}
+          y={cy}
+          dy={8}
+          textAnchor="middle"
+          fill={fill}
+          className="text-lg font-bold"
+        >
           BMI {bmi}
         </text>
         <Sector
@@ -75,9 +94,18 @@ const BMICalculator = () => {
           endAngle={endAngle}
           fill={fill}
         />
-        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+        <path
+          d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+          stroke={fill}
+          fill="none"
+        />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-        <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill={fill}>
+        <text
+          x={ex + (cos >= 0 ? 1 : -1) * 12}
+          y={ey}
+          textAnchor={textAnchor}
+          fill={fill}
+        >
           {payload.name} ({value})
         </text>
       </g>
@@ -85,7 +113,7 @@ const BMICalculator = () => {
   };
 
   return (
-    <Card className="max-w-md mx-auto p-6">
+    <Card className="w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto p-0 md:p-6">
       <CardHeader>
         <CardTitle className="text-center">BMI Calculator</CardTitle>
       </CardHeader>
@@ -95,18 +123,21 @@ const BMICalculator = () => {
           <TabsList className="flex justify-center mb-4">
             <TabsTrigger value="metric">Metric Units</TabsTrigger>
             <TabsTrigger value="us">US Units</TabsTrigger>
-            <TabsTrigger value="other">Other Units</TabsTrigger>
+            {/* <TabsTrigger value="other">Other Units</TabsTrigger> */}
           </TabsList>
         </Tabs>
 
         {/* Age Input */}
         <div className="mb-3">
-          <label className="block text-sm font-medium">Age (2 - 120 years)</label>
+          <label className="block text-sm font-medium">
+            Age (2 - 120 years)
+          </label>
           <Input
             type="number"
             value={age}
             onChange={(e) => setAge(Number(e.target.value))}
             className="mt-1"
+            min={2}
           />
         </div>
 
@@ -115,33 +146,47 @@ const BMICalculator = () => {
           <label className="block text-sm font-medium">Gender</label>
           <RadioGroup defaultValue="male" className="flex space-x-4">
             <label className="flex items-center space-x-2">
-              <RadioGroupItem value="male" checked={gender === "male"} onClick={() => setGender("male")} />
+              <RadioGroupItem
+                value="male"
+                checked={gender === "male"}
+                onClick={() => setGender("male")}
+              />
               <span>Male</span>
             </label>
             <label className="flex items-center space-x-2">
-              <RadioGroupItem value="female" checked={gender === "female"} onClick={() => setGender("female")} />
+              <RadioGroupItem
+                value="female"
+                checked={gender === "female"}
+                onClick={() => setGender("female")}
+              />
               <span>Female</span>
             </label>
           </RadioGroup>
         </div>
 
         {/* Height Input */}
-        <Input
-          type="number"
-          value={height}
-          onChange={(e) => setHeight(Number(e.target.value))}
-          placeholder={`Height (${unit === "metric" ? "cm" : "inches"})`}
-          className="mb-3"
-        />
+        <label className="block text-sm font-medium">
+          Height ({unit === "metric" ? "cm" : "inches"})
+          <Input
+            type="number"
+            value={height}
+            onChange={(e) => setHeight(Number(e.target.value))}
+            placeholder={`Height (${unit === "metric" ? "cm" : "inches"})`}
+            className="mb-3"
+          />
+        </label>
 
         {/* Weight Input */}
-        <Input
-          type="number"
-          value={weight}
-          onChange={(e) => setWeight(Number(e.target.value))}
-          placeholder={`Weight (${unit === "metric" ? "kg" : "lbs"})`}
-          className="mb-3"
-        />
+        <label className="block text-sm font-medium">
+          Weight ({unit === "metric" ? "kg" : "lbs"})
+          <Input
+            type="number"
+            value={weight}
+            onChange={(e) => setWeight(Number(e.target.value))}
+            placeholder={`Weight (${unit === "metric" ? "kg" : "lbs"})`}
+            className="mb-3"
+          />
+        </label>
 
         {/* Buttons */}
         <div className="flex space-x-4">
@@ -157,7 +202,8 @@ const BMICalculator = () => {
         {bmi && (
           <div className="mt-6 text-center">
             <h3 className="text-xl font-bold">
-              BMI = {bmi} kg/m² <span className="text-green-600">({category})</span>
+              BMI = {bmi} kg/m²{" "}
+              <span className="text-green-600">({category})</span>
             </h3>
 
             <div className="mt-6">
