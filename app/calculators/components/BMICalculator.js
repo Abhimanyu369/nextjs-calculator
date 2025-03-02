@@ -27,6 +27,7 @@ const BMICalculator = () => {
   const [category, setCategory] = useState("");
   const [activeIndex, setActiveIndex] = useState(null);
   const [gender, setGender] = useState("male");
+  const [healthyWeightRange, setHealthyWeightRange] = useState("");
 
   const calculateBMI = () => {
     let bmiCalc;
@@ -45,6 +46,23 @@ const BMICalculator = () => {
     );
     setCategory(bmiCategories[categoryIndex]?.name || "Unknown");
     setActiveIndex(categoryIndex);
+
+    // Calculate healthy weight range based on selected unit
+    const minHealthyWeightMetric = (18.5 * (height / 100) ** 2).toFixed(1);
+    const maxHealthyWeightMetric = (24.9 * (height / 100) ** 2).toFixed(1);
+
+    const minHealthyWeightUS = (minHealthyWeightMetric * 2.20462).toFixed(1);
+    const maxHealthyWeightUS = (maxHealthyWeightMetric * 2.20462).toFixed(1);
+
+    const unitLabel = unit === "metric" ? "kg" : "lbs";
+    const minWeight =
+      unit === "metric" ? minHealthyWeightMetric : minHealthyWeightUS;
+    const maxWeight =
+      unit === "metric" ? maxHealthyWeightMetric : maxHealthyWeightUS;
+
+    setHealthyWeightRange(
+      `${minWeight} ${unitLabel} - ${maxWeight} ${unitLabel}`
+    );
   };
 
   // Custom active shape for highlighting BMI category
@@ -205,6 +223,14 @@ const BMICalculator = () => {
               BMI = {bmi} kg/m²{" "}
               <span className="text-green-600">({category})</span>
             </h3>
+            {/* Healthy Weight Suggestion */}
+            <p className="text-md text-gray-700 mt-2">
+              To maintain a healthy BMI (18.5 - 24.9), your weight should be:
+              <span className="font-semibold text-blue-500">
+                {" "}
+                {healthyWeightRange}{" "}
+              </span>
+            </p>
 
             <div className="mt-6">
               <ResponsiveContainer width="100%" height={250}>
